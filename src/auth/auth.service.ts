@@ -25,7 +25,7 @@ export class AuthService {
             password: hashedPassword,
         })
         await newUser.save()
-        return { name: newUser.name, email: newUser.email, id: newUser._id }
+        return { name: newUser.name, email: newUser.email, id: newUser._id, role: newUser.role }
     }
 
 
