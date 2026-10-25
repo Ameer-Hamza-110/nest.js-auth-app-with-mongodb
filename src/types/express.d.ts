@@ -1,4 +1,5 @@
 import * as express from 'express';
+import { UserRole } from '../user/model/user.model.ts';
 
 declare global {
     namespace Express {
@@ -6,6 +7,7 @@ declare global {
             user?: {
                 id: string,
                 email: string,
+                role: UserRole
             }
         }
     }

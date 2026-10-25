@@ -1,6 +1,6 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User, UserDocument } from '../user/model/user.model.js';
+import { User, UserDocument, UserRole } from '../user/model/user.model.js';
 import { Model } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { CreateUserDto } from './dto/create-user.input.js';
@@ -23,6 +23,7 @@ export class AuthService {
             name: userData.name,
             email: userData.email,
             password: hashedPassword,
+            role: UserRole.USER
         })
         await newUser.save()
         return { name: newUser.name, email: newUser.email, id: newUser._id, role: newUser.role }
@@ -42,9 +43,9 @@ export class AuthService {
                 throw new NotFoundException("Invalid Email or Password")
             }
 
-            const token = jwt.sign({ sub: user._id.toString(), email: user.email }, process.env.JWT_SECRET!)
+            const token = jwt.sign({ sub: user._id.toString(), email: user.email, role: user.role }, process.env.JWT_SECRET!)
 
-            return { access_token: token, user: { name: user.name, email: user.email, id: user._id } }
+            return { access_token: token, user: { name: user.name, email: user.email, id: user._id, role: user.role } }
 
         } catch (error) {
             throw error

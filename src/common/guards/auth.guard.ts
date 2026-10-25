@@ -2,11 +2,13 @@ import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from
 import { Request } from 'express';
 import { Observable } from 'rxjs';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { UserRole } from '../../user/model/user.model.js';
 
 
 interface AuthPayload extends JwtPayload {
   sub: string,
-  email: string
+  email: string,
+  role: UserRole
 }
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -28,7 +30,7 @@ export class AuthGuard implements CanActivate {
 
     
     try {
-      const decoded = jwt.verify(token, secret);
+      const decoded = jwt.verify(token, secret) as AuthPayload;
 
       if (
         typeof decoded === "string" ||
@@ -41,6 +43,7 @@ export class AuthGuard implements CanActivate {
       req.user = {
         id: decoded.sub,
         email: decoded.email,
+        role: decoded.role
       };
 
 
