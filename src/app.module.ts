@@ -5,13 +5,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module.js';
 import { UserModule } from './user/user.module.js';
 import { ProjectModule } from './project/project.module.js';
+import { CloudinaryModule } from './cloudinary/cloudinary.module.js';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(process.env.MONGO_URI!),
     AuthModule,
     UserModule,
-    ProjectModule
+    ProjectModule,
+    CloudinaryModule
   ],
   controllers: [],
   providers: [],

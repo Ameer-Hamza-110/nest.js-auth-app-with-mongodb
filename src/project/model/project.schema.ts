@@ -53,17 +53,18 @@ export class Project {
   technologies: string[];
 
   @Prop({
+    type: String,
     trim: true,
     default: null,
   })
   liveUrl: string | null;
 
   @Prop({
+    type: String,
     trim: true,
     default: null,
   })
   githubUrl: string | null;
-
   @Prop({
     type: Types.ObjectId,
     ref: "User",
