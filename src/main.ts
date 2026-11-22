@@ -8,8 +8,7 @@ async function bootstrap() {
 
   app.enableCors({
     origin: [
-      'http://localhost:5173',
-      'https://your-frontend.netlify.app',
+      'https://react-js-auth-app-client-side.netlify.app',
     ],
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
